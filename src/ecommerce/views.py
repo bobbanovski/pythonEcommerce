@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.shortcuts import HttpResponse
-from .forms import ContactForm
+from .forms import ContactForm, LoginForm
 
 def home_page(request):
     context_ = {
@@ -35,6 +35,19 @@ def contact_page(request):
     #     print(request.POST.get('email'))
 
     return render(request, "contact/view.html", context_)
+
+def login_page(request):
+    login_form = LoginForm(request.POST or None)
+    print(request.user.is_authenticated())
+    if login_form.is_valid():
+        print(login_form.cleaned_data)
+    context = {
+        "form": login_form
+    }
+    return render(request, "auth/login.html", context)
+
+def register_page(request):
+    return render(request, "auth/register.html", {})
 
 def home_page_old(request):
     html_ = """

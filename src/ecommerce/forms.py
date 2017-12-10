@@ -13,3 +13,10 @@ class ContactForm(forms.Form):
         if not "gmail.com" in email:
             raise forms.ValidationError("Gmail must be the host")
         return email
+
+class LoginForm(forms.Form):
+    username = forms.CharField()
+    password = forms.CharField()
+
+
+

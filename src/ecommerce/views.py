@@ -1,4 +1,5 @@
-from django.shortcuts import render
+from django.contrib.auth import authenticate, login
+from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
 from .forms import ContactForm, LoginForm
 
@@ -36,14 +37,27 @@ def contact_page(request):
 
     return render(request, "contact/view.html", context_)
 
-def login_page(request):
+def login_page(request): #cannot be called login or conflict with imported module
     login_form = LoginForm(request.POST or None)
-    print(request.user.is_authenticated())
-    if login_form.is_valid():
-        print(login_form.cleaned_data)
-    context = {
+    context = { 
         "form": login_form
     }
+
+    print("User logged in:")
+    print(request.user.is_authenticated)
+    if login_form.is_valid():
+        print(login_form.cleaned_data)
+        username = login_form.cleaned_data.get("username")
+        password = login_form.cleaned_data.get("password")
+        user = authenticate(request, username=username, password=password)
+        if user is not None:
+            login(request, user) # Logged in only after this
+            print("Logged In")
+            context['form'] = LoginForm() #Clears form data
+            return redirect("/login")
+        else:
+            print("error")
+    
     return render(request, "auth/login.html", context)
 
 def register_page(request):

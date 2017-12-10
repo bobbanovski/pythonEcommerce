@@ -33,6 +33,7 @@ def contact_page(request):
     #     print(request.POST)
     #     print(request.POST.get('fullname'))
     #     print(request.POST.get('email'))
+
     return render(request, "contact/view.html", context_)
 
 def home_page_old(request):

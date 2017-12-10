@@ -7,3 +7,9 @@ class ContactForm(forms.Form):
         attrs={"class": "form-control", "placeholder": "Email here", "id": "formEmail"}))
     content = forms.CharField(widget=forms.Textarea(
         attrs={"class": "form-control", "placeholder": "Your Content Here", "id": "formContent"}))
+
+    def clean_email(self): #clean_email or clean_fullname or clean_content
+        email = self.cleaned_data.get("email")
+        if not "gmail.com" in email:
+            raise forms.ValidationError("Gmail must be the host")
+        return email

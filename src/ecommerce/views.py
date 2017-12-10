@@ -2,7 +2,26 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponse
 
 def home_page(request):
-    return render(request, "home_page.html", {})
+    context_ = {
+        "title": "Home Page",
+        "text": "Text from context",
+        "content": "Welcome to the home page"
+    }
+    return render(request, "home_page.html", context_)
+
+def about_page(request):
+    context_ = {
+        "title": "About Page",
+        "content": "About Us"
+    }
+    return render(request, "home_page.html", context_)
+
+def contact_page(request):
+    context_ = {
+        "title": "Contact Page",
+        "content": "Our contact details"
+    }
+    return render(request, "contact/view.html", context_)
 
 def home_page_old(request):
     html_ = """

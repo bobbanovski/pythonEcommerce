@@ -21,6 +21,10 @@ def contact_page(request):
         "title": "Contact Page",
         "content": "Our contact details"
     }
+    if request.method == "POST":
+        print(request.POST)
+        print(request.POST.get('fullname'))
+        print(request.POST.get('email'))
     return render(request, "contact/view.html", context_)
 
 def home_page_old(request):

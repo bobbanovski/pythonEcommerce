@@ -3,6 +3,7 @@
 # Virtualenv related
 bin/
 include/
+#requirements/
 pip-selfcheck.json
 
 # Django related 

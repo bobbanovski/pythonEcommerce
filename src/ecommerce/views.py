@@ -2,6 +2,9 @@ from django.shortcuts import render
 from django.shortcuts import HttpResponse
 
 def home_page(request):
+    return render(request, "home_page.html", {})
+
+def home_page_old(request):
     html_ = """
         <!doctype html>
         <html lang="en">

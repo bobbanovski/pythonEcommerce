@@ -24,3 +24,11 @@ class RegisterForm(forms.Form):
     confirm_password = forms.CharField(label='Confirm Password', widget=forms.PasswordInput)
     email = forms.EmailField(widget=forms.EmailInput(
         attrs={"class": "form-control", "placeholder": "Email here", "id": "formEmail"}))
+
+    def clean(self):
+        data = self.cleaned_data
+        password = self.cleaned_data.get('password')
+        confirm_password = self.cleaned_data.get('confirm_password')
+        if confirm_password != password:
+            raise forms.ValidationError("Passwords must match")
+        return data

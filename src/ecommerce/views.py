@@ -1,7 +1,7 @@
 from django.contrib.auth import authenticate, login
 from django.shortcuts import render, redirect
 from django.shortcuts import HttpResponse
-from .forms import ContactForm, LoginForm
+from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
     context_ = {
@@ -63,7 +63,13 @@ def login_page(request): #cannot be called login or conflict with imported modul
     return render(request, "auth/login.html", context)
 
 def register_page(request):
-    return render(request, "auth/register.html", {})
+    form = RegisterForm(request.POST or None)
+    context = { 
+        "form": form
+    }
+    if form.is_valid():
+        print(form.cleaned_data)
+    return render(request, "auth/register.html", context)
 
 def home_page_old(request):
     html_ = """

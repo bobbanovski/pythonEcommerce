@@ -9,6 +9,8 @@ def home_page(request):
         "text": "Text from context",
         "content": "Welcome to the home page"
     }
+    if request.user.is_authenticated:
+        context_["premium_content"] = "awesome post"
     return render(request, "home_page.html", context_)
 
 def about_page(request):

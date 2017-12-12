@@ -13,7 +13,7 @@ Scripts/
 tcl/
 settings.py
 *.sqlite3
-
+static_cdn/
 
 # Byte-compiled / optimized / DLL files
 __pycache__/

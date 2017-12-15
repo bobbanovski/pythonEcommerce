@@ -9,3 +9,8 @@ class Product(models.Model):
     description = models.TextField()
     price       = models.DecimalField(decimal_places=2, max_digits=20, default=39.99)
 
+    #Needed to return title in admin
+    def __str__(self):
+        return self.title
+    def __unicode__(self):
+        return self.title

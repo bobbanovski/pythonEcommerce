@@ -1,1 +1,11 @@
 {{qs}}
+<p>Paginator: </p>
+{{ paginator }}
+<br />
+<p>Query set</p>
+{{object_list}}
+<br/>
+<hr/>
+{% for obj in object_list %}
+{{ obj.title }} <br/>
+{% endfor %}

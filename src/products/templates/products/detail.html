@@ -3,4 +3,8 @@
     <h1>Detail View</h1>
     {{ object.title }}
     {{ object.description }}
+    <br />
+    {{ object.image.url }}
+    <br />
+    <img src='{{ object.image.url }}' class="img-fluid" />
 </body>

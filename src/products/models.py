@@ -24,7 +24,7 @@ class Product(models.Model):
     title       = models.CharField(max_length=120) #Charfields always have size limits
     description = models.TextField()
     price       = models.DecimalField(decimal_places=2, max_digits=20, default=39.99)
-    image       = models.FileField(upload_to=upload_image_path, null=True, blank=True) #blank - not needed in django
+    image       = models.ImageField(upload_to=upload_image_path, null=True, blank=True) #blank - not needed in django
 
     #Needed to return title in admin
     def __str__(self):

@@ -7,13 +7,17 @@ from .models import Product
 
 #Class based view - List views
 class ProductListView(ListView):
-    queryset = Product.objects.all() #retrieve from database
+    # queryset = Product.objects.all() #retrieve from database
     template_name = "products/list.html"
     #view context data - every clas based view has this method - gets the context
     # def get_context_data(self, *args, **kwargs):
     #     context = super(ProductListView, self).get_context_data(*args, **kwargs)
     #     print(context)
     #     return context
+
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        return Product.objects.all()
 
 #Function based view
 def product_list_view(request):
@@ -27,13 +31,26 @@ def product_list_view(request):
 
 #============ Detailed Views ========================
 class ProductDetailView(DetailView):
-    queryset = Product.objects.all() #retrieve from database
+    # queryset = Product.objects.all() #retrieve from database
     template_name = "products/detail.html"
     #view context data - every clas based view has this method - gets the context
     def get_context_data(self, *args, **kwargs):
         context = super(ProductDetailView, self).get_context_data(*args, **kwargs)
         print(context)
         return context
+
+    def get_object(self, *args, **kwargs):
+        request = self.request
+        id = self.kwargs.get('id')
+        instance = Product.objects.get_by_id(id)
+        print(instance)
+        if instance is None:
+            raise Http404("Product not found")
+        # return instance
+        context = {
+        'object': instance
+        }
+        return instance
 
 #Function based view
 def product_detail_view(request, id=None, *args, **kwargs):
@@ -48,14 +65,20 @@ def product_detail_view(request, id=None, *args, **kwargs):
     # except:
     #     print('wat')
 
-    qs = Product.objects.filter(id=id)
-    if qs.exists() and qs.count() == 1:
-        instance = qs.first()
-    else:
+    instance = Product.objects.get_by_id(id)
+    print(instance)
+    if instance is None:
         raise Http404("Product not found")
+# objects is a model manager
+# filter is model manager method
+    # qs = Product.objects.filter(id=id) 
+    # if qs.exists() and qs.count() == 1:
+    #     instance = qs.first()
+    # else:
+    #     raise Http404("Product not found")
 
     context = {
         'object': instance
     }
-    print(instance)
+    # print(instance)
     return render(request, "products/detail.html", context)

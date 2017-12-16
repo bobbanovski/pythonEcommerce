@@ -13,7 +13,9 @@ def upload_image_path(instance, filename):
     new_filename = random.randint(1,98746734)
     name, ext = get_filename_ext(filename)
     final_filename = '{new_filename}{ext}'.format(new_filename=new_filename, ext=ext)
-    return "products/{new_filename}/{final_filename}".format(new_filename=new_filename, final_filename=final_filename)
+    return "products/{new_filename}/{final_filename}".format(
+        new_filename=new_filename, 
+        final_filename=final_filename)
 # Create your models here.
 # Connect Django to database
 # Save changes with python manage.py makemigrations
@@ -22,7 +24,7 @@ class Product(models.Model):
     title       = models.CharField(max_length=120) #Charfields always have size limits
     description = models.TextField()
     price       = models.DecimalField(decimal_places=2, max_digits=20, default=39.99)
-    image       = models.FileField(upload_to='products/', null=True, blank=True) #blank - not needed in django
+    image       = models.FileField(upload_to=upload_image_path, null=True, blank=True) #blank - not needed in django
 
     #Needed to return title in admin
     def __str__(self):

@@ -5,6 +5,29 @@ from django.shortcuts import render, get_object_or_404
 # Create your views here.
 from .models import Product
 
+class ProductFeaturedListView(ListView):
+    template_name = "products/list.html"
+    def get_queryset(self, *args, **kwargs):
+        request = self.request
+        print(Product.objects.featured())
+        return Product.objects.featured()
+
+class ProductFeaturedDetailView(DetailView):
+    queryset = Product.objects.featured()
+    template_name = "products/featured-detail.html"
+
+    # def get_queryset(self, *args, **kwargs):
+    #     request = self.request
+    #     return Product.objects.featured()
+
+    #Below is needed to call with object pk
+    def get_object(self, *args, **kwargs):
+        request = self.request
+        id = self.kwargs.get('id')
+        instance = Product.objects.get_by_id(id)
+        print(instance)
+        return instance
+
 #Class based view - List views
 class ProductListView(ListView):
     # queryset = Product.objects.all() #retrieve from database

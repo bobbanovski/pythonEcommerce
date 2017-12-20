@@ -5,12 +5,13 @@
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-
+    {% include 'base/css.html' %}
 </head>
 <body>
     <!-- below is replaced by block content of any html that extends this html template -->
+    {% include 'base/navbar.html' %}
     {% block content %}{% endblock %}
 
-    
+    {% include 'base/js.html' %}
 </body>
 </html>

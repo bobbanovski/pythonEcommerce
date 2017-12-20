@@ -9,7 +9,7 @@
 </head>
 <body>
     <!-- below is replaced by block content of any html that extends this html template -->
-    {% include 'base/navbar.html' %}
+    {% include 'base/navbar.html' with brand_name='eCommerce'%}
     {% block content %}{% endblock %}
 
     {% include 'base/js.html' %}

@@ -75,6 +75,10 @@ class ProductDetailView(DetailView):
         }
         return instance
 
+class ProductDetailSlugView(DetailView):
+    queryset = Product.objects.all() #retrieve from database
+    template_name = "products/detail.html"
+
 #Function based view
 def product_detail_view(request, id=None, *args, **kwargs):
     # instance = Product.objects.get(pk=id)

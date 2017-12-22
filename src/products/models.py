@@ -17,11 +17,30 @@ def upload_image_path(instance, filename):
         new_filename=new_filename, 
         final_filename=final_filename)
 
+class ProductQuerySet(models.query.QuerySet):
+    def active(self):
+        return self.filter(active=True)
+
+    def featured(self):
+        return self.filter(featured=True, active=True)
+
 class ProductManager(models.Manager):
+    #These are overrides for existing db commands
+    def get_queryset(self):
+        return ProductQuerySet(self.model, using=self._db)
+
+    def all(self):
+        return self.get_queryset().active()
+
     def featured(self):
         qs = self.get_queryset().filter(featured=True)
         print(qs)
         return qs
+
+    # def features(self):
+    #     return self.get_queryset().featured()
+    #     # print(qs)
+    #     # return qs
 
     def get_by_id(self, id):
         qs = self.get_queryset().filter(id=id)
@@ -39,6 +58,7 @@ class Product(models.Model):
     price       = models.DecimalField(decimal_places=2, max_digits=20, default=39.99)
     image       = models.ImageField(upload_to=upload_image_path, null=True, blank=True) #blank - not needed in django
     featured    = models.BooleanField(default=False)
+    active    = models.BooleanField(default=True)
 
     #Link above product manager to this model
     objects = ProductManager()
@@ -48,3 +68,11 @@ class Product(models.Model):
         return self.title
     def __unicode__(self):
         return self.title
+
+class NewProduct(models.Model):
+    title       = models.CharField(max_length=120) #Charfields always have size limits
+    description = models.TextField()
+    price       = models.DecimalField(decimal_places=2, max_digits=20, default=39.99)
+    image       = models.ImageField(upload_to=upload_image_path, null=True, blank=True)
+    featured    = models.BooleanField(default=False)
+    active      = models.BooleanField(default=True)

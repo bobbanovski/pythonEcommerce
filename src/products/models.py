@@ -68,6 +68,9 @@ class Product(models.Model):
     #Link above product manager to this model
     objects = ProductManager()
 
+    def get_absolute_url(self):
+        return "/products/{slug}".format(slug=self.slug)
+
     #Needed to return title in admin
     def __str__(self):
         return self.title

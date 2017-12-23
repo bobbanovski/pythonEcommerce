@@ -54,7 +54,7 @@ class ProductManager(models.Manager):
 # python manage.py migrate
 class Product(models.Model):
     title       = models.CharField(max_length=120) #Charfields always have size limits
-    slug        = models.SlugField(default='abc')
+    slug        = models.SlugField(default='abc', unique=True)
     description = models.TextField()
     price       = models.DecimalField(decimal_places=2, max_digits=20, default=39.99)
     image       = models.ImageField(upload_to=upload_image_path, null=True, blank=True) #blank - not needed in django

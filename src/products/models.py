@@ -65,6 +65,7 @@ class Product(models.Model):
     image       = models.ImageField(upload_to=upload_image_path, null=True, blank=True) #blank - not needed in django
     featured    = models.BooleanField(default=False)
     active      = models.BooleanField(default=True)
+    timestamp   = models.DateTimeField(auto_now_add=True)
 
     #Link above product manager to this model
     objects = ProductManager()

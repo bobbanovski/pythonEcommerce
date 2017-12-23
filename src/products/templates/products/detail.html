@@ -2,16 +2,21 @@
 
 {% block content %}
 <title>Details</title>
-<body>
+<div class='container'>
+    <div class='row'>
+        <div class='col'>
     <h1>Detail View</h1>
-    {{ object.title }}
-    {{ object.description }}
+    <h4>{{ object.title }}</h4>
+    <h6>{{ object.timestamp|timesince }} ago</h6>
+    <p>{{ object.description|linebreaks }}</p>
     <br />
-    {{ object.image.url }}
+    <!-- object.image.url -->
     <br />
     {% if object.image %}
         <img src='{{ object.image.url }}' class="img-fluid" />
     {% endif %}
-</body>
+</div>
+</div>
+</div>
 <!-- endblock will also work -->
 {% endblock content %}

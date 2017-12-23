@@ -109,13 +109,14 @@ def product_detail_view(request, id=None, *args, **kwargs):
     print(instance)
     if instance is None:
         raise Http404("Product not found")
+
 # objects is a model manager
 # filter is model manager method
-    # qs = Product.objects.filter(id=id) 
-    # if qs.exists() and qs.count() == 1:
-    #     instance = qs.first()
-    # else:
-    #     raise Http404("Product not found")
+    qs = Product.objects.filter(id=id) 
+    if qs.exists() and qs.count() == 1:
+        instance = qs.first()
+    else:
+        raise Http404("Product not found")
 
     context = {
         'object': instance

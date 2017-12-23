@@ -1,6 +1,10 @@
 from django.db import models
 import os
 import random
+#Call a signal before an object is generated so that it can be incorporated
+from django.db.models.signals import pre_save, post_save
+from django.dispatch import receiver
+from .utils import unique_slug_generator
 
 def get_filename_ext(filepath):
     base_name = os.path.basename(filepath)
@@ -59,7 +63,7 @@ class Product(models.Model):
     price       = models.DecimalField(decimal_places=2, max_digits=20, default=39.99)
     image       = models.ImageField(upload_to=upload_image_path, null=True, blank=True) #blank - not needed in django
     featured    = models.BooleanField(default=False)
-    active    = models.BooleanField(default=True)
+    active      = models.BooleanField(default=True)
 
     #Link above product manager to this model
     objects = ProductManager()
@@ -69,6 +73,16 @@ class Product(models.Model):
         return self.title
     def __unicode__(self):
         return self.title
+    
+    # def pre_save(sender, instance, **kwargs):
+    #Create the signal action
+
+def product_pre_save_receiver(sender, instance, *args, **kwargs):
+    print(instance)
+    if not instance.slug:
+        instance.slug = unique_slug_generator(instance)
+    # # Link the signal to the Product model
+pre_save.connect(product_pre_save_receiver, sender=Product)
 
 class NewProduct(models.Model):
     title       = models.CharField(max_length=120) #Charfields always have size limits

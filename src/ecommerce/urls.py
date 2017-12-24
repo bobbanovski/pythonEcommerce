@@ -19,6 +19,8 @@ from django.conf.urls import url,include
 from django.contrib import admin
 from .views import (home_page, about_page, contact_page, login_page, register_page)
 
+from carts.views import cart_home
+
 from products.views import (
     ProductListView, 
     product_list_view, 
@@ -43,6 +45,7 @@ urlpatterns = [
     # url(r'^product/(?P<id>\d+)/$', ProductDetailView.as_view()), #id is kwarg
     url(r'^products/(?P<slug>[\w-]+)/$', ProductDetailSlugView.as_view()),    
     url(r'^product-fbv/(?P<id>\d+)/$', product_detail_view),
+    url(r'^cart/$', cart_home, name='cart'),
     url(r'^admin/', admin.site.urls),
 ]
 

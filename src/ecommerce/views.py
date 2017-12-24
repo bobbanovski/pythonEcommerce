@@ -4,6 +4,7 @@ from django.shortcuts import HttpResponse
 from .forms import ContactForm, LoginForm, RegisterForm
 
 def home_page(request):
+    print(request.session.get("first_name", "Unknown"))
     context_ = {
         "title": "Home Page",
         "text": "Text from context",

@@ -12,7 +12,7 @@ configobj==5.0.6
 confusable-homoglyphs==2.0.2
 cycler==0.10.0
 django-registration==2.3
-Django==1.11.7
+Django==1.11.28
 djangorestframework==3.7.3
 docutils==0.14
 future==0.16.0
